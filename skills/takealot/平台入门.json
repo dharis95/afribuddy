@@ -1,0 +1,32 @@
+{
+  "agentId": "takealot",
+  "skillName": "平台入门",
+  "trainedAt": "2026-03-25T02:54:39.997Z",
+  "parameters": {
+    "contentLength": 48,
+    "source": "knowledge-base"
+  },
+  "status": "ready",
+  "history": [
+    {
+      "step": "数据准备",
+      "status": "completed"
+    },
+    {
+      "step": "特征提取",
+      "status": "completed"
+    },
+    {
+      "step": "模型训练",
+      "status": "completed"
+    },
+    {
+      "step": "性能评估",
+      "status": "completed"
+    },
+    {
+      "step": "技能保存",
+      "status": "completed"
+    }
+  ]
+}

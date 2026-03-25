@@ -1,0 +1,167 @@
+{
+  "agentId": "kilimall",
+  "trainedAt": "2026-03-25T02:54:24.815Z",
+  "totalSkills": 5,
+  "skills": [
+    {
+      "agentId": "kilimall",
+      "skillName": "入驻指南",
+      "trainedAt": "2026-03-25T02:54:19.760Z",
+      "parameters": {
+        "contentLength": 58,
+        "source": "knowledge-base"
+      },
+      "status": "ready",
+      "history": [
+        {
+          "step": "数据准备",
+          "status": "completed"
+        },
+        {
+          "step": "特征提取",
+          "status": "completed"
+        },
+        {
+          "step": "模型训练",
+          "status": "completed"
+        },
+        {
+          "step": "性能评估",
+          "status": "completed"
+        },
+        {
+          "step": "技能保存",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "agentId": "kilimall",
+      "skillName": "商品上架",
+      "trainedAt": "2026-03-25T02:54:20.767Z",
+      "parameters": {
+        "contentLength": 48,
+        "source": "knowledge-base"
+      },
+      "status": "ready",
+      "history": [
+        {
+          "step": "数据准备",
+          "status": "completed"
+        },
+        {
+          "step": "特征提取",
+          "status": "completed"
+        },
+        {
+          "step": "模型训练",
+          "status": "completed"
+        },
+        {
+          "step": "性能评估",
+          "status": "completed"
+        },
+        {
+          "step": "技能保存",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "agentId": "kilimall",
+      "skillName": "订单处理",
+      "trainedAt": "2026-03-25T02:54:21.779Z",
+      "parameters": {
+        "contentLength": 36,
+        "source": "knowledge-base"
+      },
+      "status": "ready",
+      "history": [
+        {
+          "step": "数据准备",
+          "status": "completed"
+        },
+        {
+          "step": "特征提取",
+          "status": "completed"
+        },
+        {
+          "step": "模型训练",
+          "status": "completed"
+        },
+        {
+          "step": "性能评估",
+          "status": "completed"
+        },
+        {
+          "step": "技能保存",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "agentId": "kilimall",
+      "skillName": "客户服务",
+      "trainedAt": "2026-03-25T02:54:22.789Z",
+      "parameters": {
+        "contentLength": 35,
+        "source": "knowledge-base"
+      },
+      "status": "ready",
+      "history": [
+        {
+          "step": "数据准备",
+          "status": "completed"
+        },
+        {
+          "step": "特征提取",
+          "status": "completed"
+        },
+        {
+          "step": "模型训练",
+          "status": "completed"
+        },
+        {
+          "step": "性能评估",
+          "status": "completed"
+        },
+        {
+          "step": "技能保存",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "agentId": "kilimall",
+      "skillName": "营销推广",
+      "trainedAt": "2026-03-25T02:54:23.801Z",
+      "parameters": {
+        "contentLength": 57,
+        "source": "knowledge-base"
+      },
+      "status": "ready",
+      "history": [
+        {
+          "step": "数据准备",
+          "status": "completed"
+        },
+        {
+          "step": "特征提取",
+          "status": "completed"
+        },
+        {
+          "step": "模型训练",
+          "status": "completed"
+        },
+        {
+          "step": "性能评估",
+          "status": "completed"
+        },
+        {
+          "step": "技能保存",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

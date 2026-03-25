@@ -1,0 +1,32 @@
+{
+  "agentId": "skill-pack",
+  "skillName": "技能打包",
+  "trainedAt": "2026-03-25T02:55:05.265Z",
+  "parameters": {
+    "contentLength": 40,
+    "source": "knowledge-base"
+  },
+  "status": "ready",
+  "history": [
+    {
+      "step": "数据准备",
+      "status": "completed"
+    },
+    {
+      "step": "特征提取",
+      "status": "completed"
+    },
+    {
+      "step": "模型训练",
+      "status": "completed"
+    },
+    {
+      "step": "性能评估",
+      "status": "completed"
+    },
+    {
+      "step": "技能保存",
+      "status": "completed"
+    }
+  ]
+}

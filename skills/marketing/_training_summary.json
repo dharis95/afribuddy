@@ -1,0 +1,167 @@
+{
+  "agentId": "marketing",
+  "trainedAt": "2026-03-25T02:54:55.147Z",
+  "totalSkills": 5,
+  "skills": [
+    {
+      "agentId": "marketing",
+      "skillName": "广告投放",
+      "trainedAt": "2026-03-25T02:54:50.096Z",
+      "parameters": {
+        "contentLength": 55,
+        "source": "knowledge-base"
+      },
+      "status": "ready",
+      "history": [
+        {
+          "step": "数据准备",
+          "status": "completed"
+        },
+        {
+          "step": "特征提取",
+          "status": "completed"
+        },
+        {
+          "step": "模型训练",
+          "status": "completed"
+        },
+        {
+          "step": "性能评估",
+          "status": "completed"
+        },
+        {
+          "step": "技能保存",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "agentId": "marketing",
+      "skillName": "内容策划",
+      "trainedAt": "2026-03-25T02:54:51.103Z",
+      "parameters": {
+        "contentLength": 39,
+        "source": "knowledge-base"
+      },
+      "status": "ready",
+      "history": [
+        {
+          "step": "数据准备",
+          "status": "completed"
+        },
+        {
+          "step": "特征提取",
+          "status": "completed"
+        },
+        {
+          "step": "模型训练",
+          "status": "completed"
+        },
+        {
+          "step": "性能评估",
+          "status": "completed"
+        },
+        {
+          "step": "技能保存",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "agentId": "marketing",
+      "skillName": "节日营销",
+      "trainedAt": "2026-03-25T02:54:52.118Z",
+      "parameters": {
+        "contentLength": 58,
+        "source": "knowledge-base"
+      },
+      "status": "ready",
+      "history": [
+        {
+          "step": "数据准备",
+          "status": "completed"
+        },
+        {
+          "step": "特征提取",
+          "status": "completed"
+        },
+        {
+          "step": "模型训练",
+          "status": "completed"
+        },
+        {
+          "step": "性能评估",
+          "status": "completed"
+        },
+        {
+          "step": "技能保存",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "agentId": "marketing",
+      "skillName": "ROI分析",
+      "trainedAt": "2026-03-25T02:54:53.131Z",
+      "parameters": {
+        "contentLength": 26,
+        "source": "knowledge-base"
+      },
+      "status": "ready",
+      "history": [
+        {
+          "step": "数据准备",
+          "status": "completed"
+        },
+        {
+          "step": "特征提取",
+          "status": "completed"
+        },
+        {
+          "step": "模型训练",
+          "status": "completed"
+        },
+        {
+          "step": "性能评估",
+          "status": "completed"
+        },
+        {
+          "step": "技能保存",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "agentId": "marketing",
+      "skillName": "多渠道归因",
+      "trainedAt": "2026-03-25T02:54:54.138Z",
+      "parameters": {
+        "contentLength": 37,
+        "source": "knowledge-base"
+      },
+      "status": "ready",
+      "history": [
+        {
+          "step": "数据准备",
+          "status": "completed"
+        },
+        {
+          "step": "特征提取",
+          "status": "completed"
+        },
+        {
+          "step": "模型训练",
+          "status": "completed"
+        },
+        {
+          "step": "性能评估",
+          "status": "completed"
+        },
+        {
+          "step": "技能保存",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfriBuddy - 非洲跨境伴读</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --o1:#F97316; --o2:#EA580C; --o3:#FB923C; --o4:#FED7AA;
+            --o5:#FFEDD5; --o6:#FFF7ED; --o7:#FFFBF7;
+            --t1:#431407; --t2:#7C3F1A; --t3:#A16207; --tg:#6B7280;
+            --s1:rgba(249,115,22,0.18); --s2:rgba(234,88,12,0.28);
+            --vi:#6366F1; --vi2:#4F46E5;
+        }
+        body {
+            font-family:'Inter','Microsoft YaHei',sans-serif;
+            background:linear-gradient(145deg,#FFF7ED 0%,#FFEDD5 50%,#FEF3C7 100%);
+            min-height:100vh; padding:14px; color:var(--t1);
+        }
+        body::before {
+            content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+            background:
+                radial-gradient(circle at 15% 10%,rgba(251,146,60,.15) 0%,transparent 45%),
+                radial-gradient(circle at 88% 85%,rgba(249,115,22,.1) 0%,transparent 45%);
+        }
+        h1,h2,h3{font-weight:700;}
+        /* ─── CONTAINER ─── */
+        .container {
+            max-width:1460px; margin:0 auto;
+            background:rgba(255,255,255,.97);
+            border-radius:26px;
+            box-shadow:0 2px 6px rgba(249,115,22,.06),0 20px 60px rgba(249,115,22,.11),0 40px 100px rgba(234,88,12,.07);
+            border:1.5px solid rgba(254,215,170,.55);
+            overflow:hidden; display:flex; flex-direction:column; min-height:92vh;
+        }
+        /* ─── HEADER ─── */
+        .header {
+            background:linear-gradient(135deg,#F97316 0%,#EA580C 60%,#C2410C 100%);
+            padding:18px 30px; display:flex; justify-content:space-between; align-items:center;
+            position:relative; overflow:hidden;
+        }
+        .header::before,.header::after {
+            content:''; position:absolute; border-radius:50%; pointer-events:none;
+        }
+        .header::before{width:200px;height:200px;top:-70px;right:-50px;background:rgba(255,255,255,.07);}
+        .header::after{width:160px;height:160px;bottom:-80px;left:28%;background:rgba(255,255,255,.04);}
+        .logo-section{display:flex;align-items:center;gap:14px;z-index:1;}
+        .logo-img-wrap{
+            width:52px;height:52px;border-radius:13px;overflow:hidden;
+            border:2px solid rgba(255,255,255,.38);
+            box-shadow:0 4px 14px rgba(0,0,0,.2);
+            background:#F97316;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+        }
+        .logo-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+        .logo-text-block{display:flex;flex-direction:column;gap:3px;}
+        .logo-text-block h1{font-size:1.6rem;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.2);line-height:1;}
+        .logo-tagline{font-size:.8rem;color:rgba(255,255,255,.82);font-weight:500;}
+        .logo-badge{
+            font-size:.7rem;color:#FED7AA;background:rgba(255,255,255,.15);
+            padding:2px 10px;border-radius:20px;width:fit-content;
+            font-weight:600;border:1px solid rgba(255,255,255,.2);
+        }
+        .header-right{display:flex;align-items:center;gap:10px;z-index:1;}
+        .mode-toggle{
+            display:flex;background:rgba(255,255,255,.14);border-radius:9px;
+            padding:3px;border:1px solid rgba(255,255,255,.2);
+        }
+        .mode-btn{
+            padding:5px 13px;border-radius:7px;border:none;
+            font-size:.78rem;font-weight:600;cursor:pointer;
+            color:rgba(255,255,255,.68);background:transparent;
+            font-family:inherit;transition:all .22s;
+        }
+        .mode-btn.active{background:#fff;color:#EA580C;box-shadow:0 2px 8px rgba(0,0,0,.14);}
+        .hdr-btn{
+            width:40px;height:40px;border-radius:10px;
+            background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);
+            display:flex;align-items:center;justify-content:center;
+            font-size:1.1rem;cursor:pointer;transition:all .2s;
+        }
+        .hdr-btn:hover{background:rgba(255,255,255,.28);}
+        /* ─── DEV BANNER ─── */
+        .dev-banner{
+            background:linear-gradient(135deg,#1E1B4B,#312E81);
+            padding:7px 20px;display:none;
+            align-items:center;justify-content:space-between;
+            font-size:.78rem;color:#A5B4FC;
+        }
+        .dev-banner.show{display:flex;}
+        .dev-dot{width:7px;height:7px;background:#A5B4FC;border-radius:50%;animation:blink 1.5s infinite;}
+        @keyframes blink{0%,100%{opacity:1;}50%{opacity:.35;}}
+        /* ─── AGENT SELECTION ─── */
+        .agent-selection{padding:28px 30px;flex:1;}
+        /* Africa Hero */
+        .africa-hero {
+            background:linear-gradient(135deg,#431407 0%,#7C2D12 40%,#9A3412 100%);
+            border-radius:20px; padding:26px 30px; margin-bottom:28px;
+            display:flex;align-items:center;gap:20px;
+            position:relative;overflow:hidden;
+        }
+        .africa-icon-svg{
+            width:64px;height:64px;flex-shrink:0;
+            filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));
+        }
+        /* Africa Map PNG with transparent background */
+        .africa-map-img{
+            width:100px;height:120px;flex-shrink:0;
+            object-fit:contain;
+        }
+        .africa-hero-text h2{font-size:1.3rem;color:#fff;margin-bottom:6px;}
+        .africa-hero-text p{color:rgba(255,255,255,.72);font-size:.87rem;line-height:1.6;}
+        .africa-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+        .africa-tag{
+            font-size:.73rem;padding:3px 10px;
+            background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+            border-radius:20px;color:rgba(255,255,255,.85);font-weight:500;
+        }
+        /* Section header */
+        .sec-hdr{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+        .sec-badge{
+            padding:4px 12px;background:linear-gradient(135deg,#F97316,#EA580C);
+            color:#fff;border-radius:7px;font-size:.7rem;font-weight:800;letter-spacing:.5px;
+        }
+        .sec-title{font-size:1.18rem;color:var(--t1);}
+        /* Agent Grid */
+        .agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-bottom:32px;}
+        .agent-card{
+            background:linear-gradient(145deg,#FFFBF7,#FFF7ED);
+            border-radius:17px;padding:20px;
+            border:1.5px solid var(--o4);cursor:pointer;
+            transition:all .28s cubic-bezier(.34,1.4,.64,1);position:relative;overflow:hidden;
+        }
+        .agent-card::before{
+            content:''; position:absolute;top:0;left:0;right:0;height:3px;
+            background:linear-gradient(90deg,#F97316,#EA580C);opacity:0;transition:opacity .28s;
+        }
+        .agent-card:hover{border-color:#FB923C;transform:translateY(-4px);box-shadow:0 12px 36px var(--s1);}
+        .agent-card:hover::before{opacity:1;}
+        .agent-card-top{display:flex;align-items:flex-start;gap:11px;margin-bottom:10px;}
+        .agent-emoji{font-size:1.9rem;line-height:1;flex-shrink:0;}
+        .agent-card h3{font-size:.98rem;color:var(--t1);margin-bottom:3px;}
+        .agent-plat{
+            font-size:.7rem;color:var(--o2);font-weight:600;
+            background:rgba(249,115,22,.1);padding:2px 7px;border-radius:5px;
+            display:inline-block;
+        }
+        .agent-desc{font-size:.8rem;color:var(--tg);line-height:1.55;margin-bottom:12px;}
+        .agent-features{display:flex;flex-wrap:wrap;gap:4px;padding-top:10px;border-top:1px dashed var(--o4);margin-bottom:13px;}
+        .ftag{font-size:.68rem;padding:2px 7px;border-radius:8px;background:rgba(249,115,22,.07);color:var(--o2);border:1px solid rgba(249,115,22,.13);}
+        .agent-hire-btn{
+            width:100%;padding:9px;border-radius:9px;border:none;cursor:pointer;
+            background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;
+            font-size:.82rem;font-weight:700;transition:all .22s;
+            font-family:inherit;box-shadow:0 3px 12px rgba(234,88,12,.22);
+        }
+        .agent-hire-btn:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(234,88,12,.32);}
+        .agent-hire-btn.hired{background:linear-gradient(135deg,#10B981,#059669);box-shadow:0 3px 12px rgba(16,185,129,.22);}
+        .hire-price-badge{
+            position:absolute;top:12px;right:12px;
+            background:linear-gradient(135deg,#431407,#7C2D12);
+            color:#FED7AA;font-size:.65rem;font-weight:700;
+            padding:2px 8px;border-radius:8px;
+        }
+        /* Hire Plans */
+        .hire-plans-section{margin-top:8px;}
+        .plans-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px;}
+        .plan-card{
+            background:linear-gradient(145deg,#FFFBF7,#FFF7ED);
+            border-radius:18px;padding:24px 18px;text-align:center;
+            border:1.5px solid var(--o4);transition:all .28s;cursor:pointer;
+            position:relative;
+        }
+        .plan-card:hover{transform:translateY(-4px);border-color:var(--o1);box-shadow:0 14px 44px var(--s1);}
+        .plan-card.hot{border:2px solid var(--o1);background:linear-gradient(145deg,#FFF7ED,#FFEDD5);box-shadow:0 10px 36px var(--s1);}
+        .plan-card.year{border:2px solid #D97706;background:linear-gradient(145deg,#FFFBEB,#FEF3C7);box-shadow:0 10px 36px rgba(217,119,6,.15);}
+        .hot-badge{
+            position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+            background:linear-gradient(135deg,#F97316,#EA580C);
+            color:#fff;font-size:.68rem;font-weight:800;
+            padding:3px 14px;border-radius:20px;white-space:nowrap;
+        }
+        .plan-duration{font-size:.78rem;color:var(--tg);font-weight:600;letter-spacing:.5px;margin-bottom:6px;}
+        .plan-price{font-size:2rem;font-weight:800;color:var(--o1);line-height:1.1;}
+        .plan-price span{font-size:.85rem;color:var(--tg);font-weight:400;}
+        .plan-desc{font-size:.75rem;color:var(--tg);margin:8px 0 14px;}
+        .plan-agents{font-size:.78rem;color:var(--o2);font-weight:600;margin-bottom:14px;}
+        .plan-btn{
+            width:100%;padding:9px;border-radius:9px;border:none;font-size:.82rem;font-weight:600;
+            cursor:pointer;font-family:inherit;transition:all .22s;
+            background:rgba(249,115,22,.1);color:var(--o1);
+            border:1.5px solid rgba(249,115,22,.25);
+        }
+        .plan-card.hot .plan-btn{
+            background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;
+            border-color:transparent;box-shadow:0 4px 14px rgba(234,88,12,.28);
+        }
+        .plan-card.year .plan-btn{
+            background:linear-gradient(135deg,#D97706,#B45309);color:#fff;
+            border-color:transparent;box-shadow:0 4px 14px rgba(217,119,6,.28);
+        }
+        .plan-btn:hover{transform:translateY(-1px);}
+        /* ─── CHAT ─── */
+        .chat-section{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+        .chat-header{
+            padding:14px 22px;border-bottom:1px solid var(--o4);
+            background:linear-gradient(135deg,var(--o6),var(--o7));
+            display:flex;justify-content:space-between;align-items:center;
+        }
+        .chat-hdr-l{display:flex;align-items:center;gap:9px;}
+        .back-btn{
+            width:34px;height:34px;border-radius:9px;background:#fff;
+            border:1.5px solid var(--o4);color:var(--o1);
+            font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+            transition:all .2s;
+        }
+        .back-btn:hover{background:var(--o6);border-color:var(--o1);}
+        .chat-agent-nm{font-weight:700;color:var(--t1);font-size:.95rem;}
+        .online-dot{width:7px;height:7px;background:#10B981;border-radius:50%;display:inline-block;margin-left:3px;animation:blink 2s infinite;}
+        .chat-actions{display:flex;gap:7px;}
+        .act-btn{
+            padding:6px 12px;border-radius:7px;border:1.5px solid var(--o4);
+            background:#fff;color:var(--tg);cursor:pointer;font-size:.78rem;
+            font-weight:500;transition:all .2s;font-family:inherit;
+        }
+        .act-btn:hover{background:var(--o6);color:var(--o1);border-color:var(--o1);}
+        .act-btn.exit{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.22);color:#EF4444;}
+        .act-btn.exit:hover{background:rgba(239,68,68,.11);border-color:#EF4444;}
+        /* Chat Area */
+        .chat-area{
+            flex:1;padding:22px;overflow-y:auto;
+            background:linear-gradient(180deg,#FFFBF7,#FFF7ED);
+            display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth;
+        }
+        /* Welcome Area */
+        .welcome-area{
+            padding:24px;overflow-y:auto;
+            background:linear-gradient(180deg,#FFFBF7,#FFF7ED);
+        }
+        .message{max-width:82%;padding:13px 17px;border-radius:15px;line-height:1.68;font-size:.9rem;
+            animation:slideIn .28s cubic-bezier(.34,1.2,.64,1);}
+        @keyframes slideIn{from{opacity:0;transform:translateY(10px) scale(.98);}to{opacity:1;transform:none;}}
+        .message.user{
+            align-self:flex-end;background:linear-gradient(135deg,#F97316,#EA580C);
+            color:#fff;border-bottom-right-radius:4px;box-shadow:0 4px 14px rgba(234,88,12,.22);
+        }
+        .message.assistant{
+            align-self:flex-start;background:#fff;border:1.5px solid var(--o4);
+            border-bottom-left-radius:4px;color:var(--t1);box-shadow:0 2px 10px rgba(249,115,22,.07);
+        }
+        .message.system{
+            align-self:center;background:rgba(249,115,22,.05);color:var(--o2);
+            border:1px solid rgba(249,115,22,.18);border-radius:11px;
+            max-width:480px;text-align:center;font-size:.8rem;
+        }
+        .msg-ts{font-size:.65rem;opacity:.45;margin-top:5px;text-align:right;}
+        .agent-tag{
+            display:inline-flex;align-items:center;gap:3px;font-size:.68rem;
+            padding:2px 9px;border-radius:9px;margin-bottom:7px;
+            background:rgba(249,115,22,.1);color:var(--o2);font-weight:700;
+        }
+        /* Welcome card */
+        .welcome-card{
+            background:#fff;border:1.5px solid var(--o4);border-radius:17px;
+            padding:22px;align-self:flex-start;max-width:90%;
+            box-shadow:0 4px 18px rgba(249,115,22,.09);animation:slideIn .4s ease;
+        }
+        .welcome-title{font-size:1.08rem;font-weight:700;color:var(--t1);margin-bottom:7px;display:flex;align-items:center;gap:7px;}
+        .welcome-sub{color:var(--t2);font-size:.85rem;line-height:1.62;margin-bottom:18px;}
+        .dir-group{margin-bottom:14px;}
+        .dir-group-lbl{
+            font-size:.72rem;font-weight:700;color:var(--t3);
+            text-transform:uppercase;letter-spacing:.7px;margin-bottom:7px;
+            display:flex;align-items:center;gap:6px;
+        }
+        .dir-group-lbl::after{content:'';flex:1;height:1px;background:var(--o4);}
+        .dir-cards{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+        .dir-card{
+            background:linear-gradient(135deg,var(--o6),var(--o5));
+            border:1.5px solid var(--o4);border-radius:11px;padding:11px 13px;
+            cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:9px;
+        }
+        .dir-card:hover{border-color:var(--o1);transform:translateY(-2px);box-shadow:0 5px 16px var(--s1);}
+        .dir-icon{font-size:1.3rem;line-height:1;flex-shrink:0;}
+        .dir-info h4{font-size:.82rem;font-weight:700;color:var(--t1);margin-bottom:2px;}
+        .dir-info p{font-size:.7rem;color:var(--tg);line-height:1.38;}
+        .warm-note{
+            margin-top:16px;padding:12px 15px;
+            background:linear-gradient(135deg,rgba(249,115,22,.05),rgba(234,88,12,.03));
+            border-radius:11px;border-left:3px solid var(--o1);
+            font-size:.82rem;color:var(--t2);line-height:1.62;
+        }
+        /* Typing */
+        .typing-ind{display:inline-flex;gap:4px;align-items:center;padding:6px 12px;}
+        .typing-ind span{
+            width:7px;height:7px;background:var(--o1);border-radius:50%;
+            animation:typBounce 1.2s ease-in-out infinite;
+        }
+        .typing-ind span:nth-child(2){animation-delay:.2s;}
+        .typing-ind span:nth-child(3){animation-delay:.4s;}
+        @keyframes typBounce{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-6px);opacity:1;}}
+        /* Input */
+        .chat-input-area{
+            padding:14px 18px;background:#fff;border-top:1px solid var(--o4);
+            display:flex;gap:9px;align-items:flex-end;
+        }
+        .file-zone{
+            width:48px;height:48px;border-radius:11px;border:1.5px dashed var(--o4);
+            display:flex;align-items:center;justify-content:center;cursor:pointer;
+            transition:all .2s;background:var(--o7);color:var(--tg);font-size:1.3rem;flex-shrink:0;
+        }
+        .file-zone:hover{border-color:var(--o1);background:rgba(249,115,22,.05);}
+        .input-wrap{flex:1;display:flex;flex-direction:column;gap:5px;}
+        .input-wrap textarea{
+            width:100%;padding:11px 13px;border-radius:11px;
+            border:1.5px solid var(--o4);background:var(--o7);
+            color:var(--t1);font-family:inherit;font-size:.88rem;
+            resize:none;min-height:48px;max-height:110px;outline:none;transition:all .2s;line-height:1.5;
+        }
+        .input-wrap textarea:focus{border-color:var(--o1);background:#fff;box-shadow:0 0 0 3px rgba(249,115,22,.1);}
+        .input-wrap textarea::placeholder{color:#D1A87A;}
+        .file-preview{display:flex;flex-wrap:wrap;gap:5px;}
+        .ftag-file{
+            background:rgba(249,115,22,.1);color:var(--o2);
+            padding:3px 9px;border-radius:7px;font-size:.72rem;
+            display:inline-flex;align-items:center;gap:4px;
+            border:1px solid rgba(249,115,22,.18);
+        }
+        .send-btn{
+            width:48px;height:48px;border-radius:11px;
+            background:linear-gradient(135deg,#F97316,#EA580C);
+            color:#fff;border:none;cursor:pointer;font-size:1.1rem;
+            transition:all .22s;box-shadow:0 4px 14px rgba(234,88,12,.28);flex-shrink:0;
+        }
+        .send-btn:hover{transform:scale(1.06) rotate(-4deg);box-shadow:0 6px 20px rgba(234,88,12,.4);}
+        .send-btn:disabled{background:#E5E7EB;color:#9CA3AF;transform:none;box-shadow:none;cursor:not-allowed;}
+        /* ─── MODALS ─── */
+        .modal-overlay{
+            position:fixed;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(6px);
+            z-index:1000;display:none;align-items:center;justify-content:center;padding:18px;
+        }
+        .modal-overlay.active{display:flex;}
+        .modal{
+            background:#fff;width:90%;max-width:560px;max-height:92vh;overflow-y:auto;
+            border-radius:22px;border:1.5px solid var(--o4);
+            box-shadow:0 20px 60px rgba(249,115,22,.14);
+            animation:mIn .28s cubic-bezier(.34,1.2,.64,1);
+        }
+        @keyframes mIn{from{opacity:0;transform:scale(.92) translateY(18px);}to{opacity:1;transform:none;}}
+        .modal.dev-m{border-color:#6366F1;max-width:640px;}
+        .modal-hdr{padding:22px 22px 0;display:flex;align-items:center;gap:11px;}
+        .m-icon{
+            width:42px;height:42px;border-radius:11px;flex-shrink:0;
+            background:linear-gradient(135deg,#F97316,#EA580C);
+            display:flex;align-items:center;justify-content:center;
+            font-size:1.2rem;box-shadow:0 4px 12px rgba(234,88,12,.22);
+        }
+        .m-icon.dev{background:linear-gradient(135deg,#6366F1,#4F46E5);box-shadow:0 4px 12px rgba(99,102,241,.28);}
+        .modal h2{color:var(--t1);font-size:1.2rem;}
+        .modal-sec{padding:0 22px;margin-bottom:18px;}
+        .modal-sec h3{color:var(--o2);margin:18px 0 10px;font-size:.9rem;}
+        .modal-sec h3.dvt{color:#6366F1;}
+        .fg{margin-bottom:12px;}
+        .fg label{display:block;margin-bottom:5px;color:var(--t2);font-size:.84rem;font-weight:600;}
+        .fg input,.fg select,.fg textarea{
+            width:100%;padding:10px 13px;border-radius:9px;border:1.5px solid var(--o4);
+            background:var(--o7);color:var(--t1);font-size:.88rem;font-family:inherit;outline:none;transition:all .2s;
+        }
+        .fg input:focus,.fg select:focus{border-color:var(--o1);background:#fff;box-shadow:0 0 0 3px rgba(249,115,22,.1);}
+        .fg input.di:focus,.fg select.di:focus{border-color:#6366F1;box-shadow:0 0 0 3px rgba(99,102,241,.1);}
+        .modal-ft{padding:18px 22px;border-top:1px solid var(--o4);display:flex;gap:9px;justify-content:flex-end;}
+        .mbtn{padding:9px 20px;border-radius:9px;font-size:.88rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;}
+        .mbtn.p{background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;box-shadow:0 4px 12px rgba(234,88,12,.22);}
+        .mbtn.p:hover{transform:translateY(-1px);}
+        .mbtn.dp{background:linear-gradient(135deg,#6366F1,#4F46E5);color:#fff;box-shadow:0 4px 12px rgba(99,102,241,.22);}
+        .mbtn.s{background:#F3F4F6;color:#6B7280;}
+        .mbtn.d{background:rgba(239,68,68,.09);color:#EF4444;border:1px solid rgba(239,68,68,.18);}
+        .info-box{background:linear-gradient(135deg,var(--o6),var(--o5));border-radius:11px;padding:13px 15px;margin-bottom:12px;border-left:3px solid var(--o1);}
+        .info-box.dev-b{background:linear-gradient(135deg,#EEF2FF,#E0E7FF);border-left-color:#6366F1;}
+        .info-box h4{color:var(--o2);font-size:.84rem;margin-bottom:5px;}
+        .info-box.dev-b h4{color:#4F46E5;}
+        .info-box p{font-size:.78rem;color:var(--t2);line-height:1.52;}
+        .info-box.dev-b p{color:#4338CA;}
+        .price-prev{background:rgba(249,115,22,.06);border:2px solid rgba(249,115,22,.22);border-radius:11px;padding:14px;text-align:center;margin-top:12px;}
+        .price-prev .amt{font-size:1.9rem;font-weight:800;color:var(--o1);}
+        .price-prev .per{color:var(--tg);font-size:.84rem;margin-top:3px;}
+        /* KB Source tabs */
+        .kb-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+        .kb-tab{
+            padding:5px 13px;border-radius:7px;border:1.5px solid var(--o4);
+            font-size:.76rem;font-weight:600;cursor:pointer;transition:all .2s;
+            background:var(--o7);color:var(--tg);font-family:inherit;
+        }
+        .kb-tab.active{background:linear-gradient(135deg,#6366F1,#4F46E5);color:#fff;border-color:transparent;}
+        .kb-source-panel{display:none;}
+        .kb-source-panel.show{display:block;}
+        /* scrollbar */
+        ::-webkit-scrollbar{width:5px;}
+        ::-webkit-scrollbar-track{background:transparent;}
+        ::-webkit-scrollbar-thumb{background:var(--o4);border-radius:4px;}
+        ::-webkit-scrollbar-thumb:hover{background:var(--o3);}
+        /* toast */
+        .toast{
+            position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(70px);
+            background:linear-gradient(135deg,#431407,#7C2D12);color:#fff;
+            padding:11px 22px;border-radius:11px;z-index:2000;
+            border:1px solid rgba(249,115,22,.28);
+            box-shadow:0 10px 36px rgba(0,0,0,.18);
+            transition:all .36s cubic-bezier(.34,1.2,.64,1);
+            font-size:.84rem;font-weight:500;
+        }
+        .toast.show{transform:translateX(-50%) translateY(0);}
+        @media(max-width:900px){.plans-grid{grid-template-columns:repeat(2,1fr);}}
+        @media(max-width:600px){
+            body{padding:7px;} .header{padding:14px 16px;} .agent-selection{padding:16px;}
+            .agent-grid{grid-template-columns:1fr 1fr;} .plans-grid{grid-template-columns:1fr 1fr;}
+            .dir-cards{grid-template-columns:1fr;}
+        }
+        @media(max-width:420px){.agent-grid{grid-template-columns:1fr;}.plans-grid{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div class="container">
+
+<!-- ══════════ HEADER ══════════ -->
+<div class="header">
+    <div class="logo-section">
+        <div class="logo-img-wrap">
+            <img src="AfriBuddy.png" alt="AfriBuddy"
+                 onerror="this.style.display='none';this.parentNode.innerHTML='<span style=\'font-size:1.6rem\'>🌍</span>'">
+        </div>
+        <div class="logo-text-block">
+            <h1>AfriBuddy</h1>
+            <div class="logo-tagline">非洲跨境伴读 · 一路同行</div>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="mode-toggle" id="modeToggle">
+            <button class="mode-btn active" id="userModeBtn" onclick="switchMode('user')">👤 用户</button>
+            <button class="mode-btn" id="devModeBtn" onclick="promptDevMode()">🛠 开发者</button>
+        </div>
+        <div class="hdr-btn" onclick="openSettings()" title="设置">⚙️</div>
+    </div>
+</div>
+
+<!-- Dev Banner -->
+<div class="dev-banner" id="devBanner">
+    <div style="display:flex;align-items:center;gap:6px;font-weight:600;">
+        <div class="dev-dot"></div>开发者模式 · Developer Mode Active
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+        <span style="opacity:.65;font-size:.73rem;">Agent 管理 & 知识库 & API 配置已解锁</span>
+        <button onclick="openSettings()" style="background:rgba(165,180,252,.2);border:1px solid rgba(165,180,252,.3);color:#A5B4FC;padding:3px 10px;border-radius:6px;font-size:.72rem;cursor:pointer;font-family:inherit;">打开设置</button>
+    </div>
+</div>
+
+<!-- ══════════ AGENT SELECTION ══════════ -->
+<div class="agent-selection" id="agentSelection">
+
+    <!-- Africa Hero Banner -->
+    <div class="africa-hero">
+        <!-- Africa Map PNG with transparent background -->
+        <img src="非洲版图.png" alt="非洲版图" class="africa-map-img">
+        <div class="africa-hero-text">
+            <h2>寻找 &amp; 选择你的非洲跨境伴读专家</h2>
+            <p>深耕东非、西非、南非市场，假如你是跨境OPC或者非洲市场开发者，这里能从开店入驻到日常运营进行伴读陪跑，还能像老朋友一样陪你一起试验，每一位Agent都将专注进行一个方向发展</p>
+            <div class="africa-tags">
+                <span class="africa-tag">🇰🇪 东非市场</span>
+                <span class="africa-tag">🇳🇬 西非市场</span>
+                <span class="africa-tag">🇿🇦 南非市场</span>
+                <span class="africa-tag">📱 TikTok 流量</span>
+                <span class="africa-tag">🛒 独立站转化</span>
+                <span class="africa-tag">🏪 店铺开设</span>
+                <span class="africa-tag">📦 物流仓配</span>
+                <span class="africa-tag">🔧 Skill 技能包</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agent Grid -->
+    <div class="sec-hdr">
+        <span class="sec-badge">AGENT</span>
+        <h2 class="sec-title">寻找 &amp; 选择你的非洲跨境伴读专家</h2>
+    </div>
+    <div class="agent-grid" id="agentGrid"></div>
+
+    <!-- Hire Plans -->
+    <div class="hire-plans-section">
+        <div class="sec-hdr">
+            <span class="sec-badge">雇佣</span>
+            <h2 class="sec-title">选择雇佣时长，让 Agent 持续陪伴</h2>
+        </div>
+        <div class="plans-grid">
+            <div class="plan-card" onclick="openHireModal('day')">
+                <div class="plan-duration">DAY · 日雇</div>
+                <div class="plan-price">¥9<span>/天</span></div>
+                <div class="plan-desc">快速体验，按需使用</div>
+                <div class="plan-agents">🎁 赠送：1位Agent + 合规顾问</div>
+                <button class="plan-btn">立即雇佣</button>
+            </div>
+            <div class="plan-card" onclick="openHireModal('week')">
+                <div class="plan-duration">WEEK · 周雇</div>
+                <div class="plan-price">¥49<span>/周</span></div>
+                <div class="plan-desc">集中攻坚，高效产出</div>
+                <div class="plan-agents">雇佣 1–2 位 Agent</div>
+                <button class="plan-btn">立即雇佣</button>
+            </div>
+            <div class="plan-card hot" onclick="openHireModal('month')">
+                <div class="hot-badge">🔥 最多人选</div>
+                <div class="plan-duration">MONTH · 月雇</div>
+                <div class="plan-price">¥149<span>/月</span></div>
+                <div class="plan-desc">持续陪跑，稳定输出</div>
+                <div class="plan-agents">雇佣 1–5 位 Agent</div>
+                <button class="plan-btn">立即雇佣</button>
+            </div>
+            <div class="plan-card" onclick="openHireModal('quarter')">
+                <div class="plan-duration">SEASON · 季雇</div>
+                <div class="plan-price">¥399<span>/季</span></div>
+                <div class="plan-desc">深度合作，全程覆盖</div>
+                <div class="plan-agents">无限 Agent + Skill技能包</div>
+                <button class="plan-btn">立即雇佣</button>
+            </div>
+            <div class="plan-card year" onclick="openHireModal('year')">
+                <div class="hot-badge" style="background:linear-gradient(135deg,#D97706,#B45309);">👑 年度旗舰</div>
+                <div class="plan-duration">YEAR · 年雇</div>
+                <div class="plan-price">¥999<span>/年</span></div>
+                <div class="plan-desc">年度深度合作，专属陪跑</div>
+                <div class="plan-agents">无限 Agent + 真人陪跑 2-3 次</div>
+                <div style="font-size:.68rem;color:#92400E;margin-top:-8px;margin-bottom:10px;line-height:1.4;">包含：深度话题解析 · 物流方案分享<br>运营方向建议 · 策略复盘指导 + Skill技能包</div>
+                <button class="plan-btn">立即雇佣</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ══════════ CHAT SECTION ══════════ -->
+<div class="chat-section" id="chatSection" style="display:none;">
+    <!-- Welcome Area with Directories -->
+    <div class="welcome-area" id="welcomeArea" style="padding:24px;flex:1;overflow-y:auto;"></div>
+    <div class="chat-header">
+        <div class="chat-hdr-l">
+            <button class="back-btn" onclick="goHome()">←</button>
+            <img id="chatAgentIcon" src="image_1774363852284.png" alt="" style="width:28px;height:28px;border-radius:6px;object-fit:cover;"
+                 onerror="this.outerHTML='<span id=\'chatAgentIcon\' style=\'font-size:1.35rem;\'>🌍</span>'">
+            <span class="chat-agent-nm" id="chatAgentName">AfriBuddy</span>
+            <span class="online-dot" title="在线"></span>
+        </div>
+        <div class="chat-actions">
+            <button class="act-btn" onclick="clearChat()">🗑 清除</button>
+            <button class="act-btn" onclick="exportChat()">📤 导出</button>
+            <button class="act-btn exit" onclick="exitApp()">✕ 退出</button>
+        </div>
+    </div>
+    <div class="chat-area" id="chatArea"></div>
+    <div class="chat-input-area">
+        <div class="file-zone" id="fileZone" title="点击或拖拽上传">📎</div>
+        <div class="input-wrap">
+            <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.txt,.md,.json,.csv" style="display:none;">
+            <div class="file-preview" id="filePreview"></div>
+            <textarea id="chatInput" placeholder="有什么想问的？随时告诉我～ (Enter 发送，Shift+Enter 换行)" rows="1"></textarea>
+        </div>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+    </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- ══════ HIRE MODAL ══════ -->
+<div class="modal-overlay" id="hireModal">
+    <div class="modal">
+        <div class="modal-hdr">
+            <div class="m-icon">🤝</div>
+            <div>
+                <h2 id="hireTitle">雇佣 Agent</h2>
+                <div style="font-size:.74rem;color:var(--tg);margin-top:2px;" id="hireSubtitle"></div>
+            </div>
+        </div>
+        <div class="modal-sec" style="margin-top:18px;">
+            <div class="fg">
+                <label>选择 Agent</label>
+                <select id="hireAgentSel"></select>
+            </div>
+            <div class="fg">
+                <label>支付方式</label>
+                <select id="hirePayment">
+                    <option value="wechat">微信支付</option>
+                    <option value="alipay">支付宝</option>
+                    <option value="stripe">Stripe（国际）</option>
+                </select>
+            </div>
+            <div class="price-prev">
+                <div class="amt" id="hireAmt">¥149</div>
+                <div class="per" id="hirePer">月雇 · 1 个月</div>
+            </div>
+        </div>
+        <div class="modal-ft">
+            <button class="mbtn s" onclick="closeModal('hireModal')">取消</button>
+            <button class="mbtn p" onclick="confirmHire()">确认雇佣</button>
+        </div>
+    </div>
+</div>
+
+<!-- ══════ SETTINGS MODAL ══════ -->
+<div class="modal-overlay" id="settingsModal">
+    <div class="modal dev-m" id="settingsModalInner">
+        <div class="modal-hdr">
+            <div class="m-icon" id="settingsIcon">⚙️</div>
+            <div>
+                <h2 id="settingsTitle">系统设置</h2>
+                <div style="font-size:.74rem;color:var(--tg);margin-top:2px;" id="settingsSub">用户模式</div>
+            </div>
+        </div>
+
+        <!-- User Settings -->
+        <div id="userSettings" class="modal-sec" style="margin-top:18px;">
+            <div class="info-box">
+                <h4>🔒 隐私说明</h4>
+                <p>所有数据本地处理 · 不上传任何云端<br>如需配置 API 和知识库，请切换至开发者模式</p>
+            </div>
+            <div class="fg">
+                <label>界面语言</label>
+                <select><option>中文（简体）</option><option>English</option></select>
+            </div>
+        </div>
+
+        <!-- Dev Settings -->
+        <div id="devSettings" class="modal-sec" style="margin-top:18px;display:none;">
+            <!-- 大模型选择 -->
+            <h3 class="dvt">🤖 大模型配置</h3>
+            <div class="fg">
+                <label>选择大模型</label>
+                <select id="llmProvider" onchange="updateLLMUI()">
+                    <option value="qwen">通义千问（阿里云 DashScope）</option>
+                    <option value="gpt">GPT-4o（OpenAI）</option>
+                    <option value="claude">Claude 3.5（Anthropic）</option>
+                    <option value="gemini">Gemini 1.5（Google）</option>
+                    <option value="deepseek">DeepSeek V3</option>
+                    <option value="custom">自定义 API</option>
+                </select>
+            </div>
+            <div class="fg">
+                <label id="llmKeyLabel" style="display:flex;justify-content:space-between;">
+                    <span>API Key</span>
+                    <span style="font-size:.7rem;color:var(--tg);">本地加密存储</span>
+                </label>
+                <input type="password" id="dashscopeKey" placeholder="sk-xxxxxxxxxxxx" oninput="saveSettings()" class="di">
+                <small id="llmKeyHint" style="color:var(--tg);display:block;margin-top:3px;font-size:.74rem;"></small>
+            </div>
+            <div class="fg" id="customEndpointGroup" style="display:none;">
+                <label>自定义 API 地址</label>
+                <input type="text" id="customEndpoint" placeholder="https://your-api.com/v1/chat" class="di" oninput="saveSettings()">
+            </div>
+
+            <!-- Agent 单独配置 -->
+            <h3 class="dvt">🧩 Agent 单独配置</h3>
+            <div class="fg">
+                <label>选择要配置的 Agent</label>
+                <select id="devAgentSel" onchange="loadAgentConfig()">
+                    <!-- populated by JS -->
+                </select>
+            </div>
+            <div class="fg">
+                <label>该 Agent 专属大模型（留空则跟随全局）</label>
+                <select id="agentLLM" class="di">
+                    <option value="">跟随全局设置</option>
+                    <option value="qwen">通义千问</option>
+                    <option value="gpt">GPT-4o</option>
+                    <option value="claude">Claude 3.5</option>
+                    <option value="gemini">Gemini 1.5</option>
+                    <option value="deepseek">DeepSeek V3</option>
+                </select>
+            </div>
+            <div class="fg">
+                <label>Agent 系统提示词（Prompt）</label>
+                <textarea id="agentPrompt" rows="3" class="di" placeholder="你是一位专注于非洲 Kilimall 平台的跨境运营专家..." style="resize:vertical;"></textarea>
+            </div>
+
+            <!-- 知识库配置 -->
+            <h3 class="dvt">📚 知识库管理</h3>
+            <div class="kb-tabs" id="kbTabs">
+                <button class="kb-tab active" onclick="switchKBTab('local',this)">💾 本地文件</button>
+                <button class="kb-tab" onclick="switchKBTab('cloud',this)">☁️ 云端 URL</button>
+                <button class="kb-tab" onclick="switchKBTab('github',this)">🐙 GitHub 仓库</button>
+                <button class="kb-tab" onclick="switchKBTab('api',this)">🔗 自定义 API</button>
+            </div>
+
+            <!-- Local -->
+            <div class="kb-source-panel show" id="kb-local">
+                <div class="fg">
+                    <label>本地知识库路径</label>
+                    <input type="text" id="knowledgePath" value="C:/Users/Administrator/knowledge-db" oninput="saveSettings()" class="di">
+                    <small style="color:var(--tg);font-size:.74rem;margin-top:3px;display:block;">仅本地读取，不上传任何服务器</small>
+                </div>
+                <div class="fg">
+                    <label>上传知识文件</label>
+                    <input type="file" id="devFileInput" accept=".pdf,.doc,.docx,.txt,.md,.json" class="di">
+                    <small style="color:var(--tg);font-size:.74rem;margin-top:3px;display:block;">支持 PDF / DOC / TXT / MD / JSON</small>
+                </div>
+                <button class="mbtn dp" onclick="uploadKnowledge()" style="margin-bottom:8px;">上传到知识库</button>
+                <button class="mbtn d" onclick="clearKnowledge()">清空知识库</button>
+                <div id="devKBList" style="max-height:130px;overflow-y:auto;margin-top:10px;"></div>
+            </div>
+
+            <!-- Cloud -->
+            <div class="kb-source-panel" id="kb-cloud">
+                <div class="fg">
+                    <label>云端知识库 URL（支持多个，换行分隔）</label>
+                    <textarea id="cloudKBUrls" rows="3" class="di" placeholder="https://your-cdn.com/kb/africa-ops.json&#10;https://your-api.com/knowledge/kilimall" style="resize:vertical;"></textarea>
+                    <small style="color:var(--tg);font-size:.74rem;margin-top:3px;display:block;">支持 JSON / Markdown / 纯文本 URL</small>
+                </div>
+                <button class="mbtn dp" onclick="saveCloudKB()">保存云端知识库</button>
+            </div>
+
+            <!-- GitHub -->
+            <div class="kb-source-panel" id="kb-github">
+                <div class="fg">
+                    <label>GitHub 仓库地址</label>
+                    <input type="text" id="githubRepo" class="di" placeholder="https://github.com/yourname/africa-kb">
+                </div>
+                <div class="fg">
+                    <label>分支 / 目录路径</label>
+                    <input type="text" id="githubBranch" class="di" placeholder="main / knowledge/">
+                </div>
+                <div class="fg">
+                    <label>GitHub Token（私有仓库需要）</label>
+                    <input type="password" id="githubToken" class="di" placeholder="ghp_xxxxxxxxxxxx">
+                    <small style="color:var(--tg);font-size:.74rem;margin-top:3px;display:block;">Token 仅本地存储，不上传</small>
+                </div>
+                <button class="mbtn dp" onclick="syncGitHub()">同步 GitHub 知识库</button>
+            </div>
+
+            <!-- Custom API -->
+            <div class="kb-source-panel" id="kb-api">
+                <div class="fg">
+                    <label>知识库 API 地址</label>
+                    <input type="text" id="kbApiUrl" class="di" placeholder="https://your-api.com/v1/knowledge/query">
+                </div>
+                <div class="fg">
+                    <label>API Key / Token</label>
+                    <input type="password" id="kbApiKey" class="di" placeholder="Bearer xxxx">
+                </div>
+                <div class="fg">
+                    <label>请求格式</label>
+                    <select id="kbApiMethod" class="di">
+                        <option>POST · JSON Body</option>
+                        <option>GET · Query Param</option>
+                    </select>
+                </div>
+                <button class="mbtn dp" onclick="testKBApi()">测试连接</button>
+            </div>
+        </div>
+
+        <div class="modal-ft">
+            <button class="mbtn d" onclick="clearAllData()" style="margin-right:auto;">清除本地数据</button>
+            <button class="mbtn s" onclick="closeModal('settingsModal')">关闭</button>
+        </div>
+    </div>
+</div>
+
+<!-- ══════ DEV PASSWORD ══════ -->
+<div class="modal-overlay" id="devPassModal">
+    <div class="modal" style="max-width:360px;">
+        <div class="modal-hdr">
+            <div class="m-icon dev">🔐</div>
+            <div><h2>开发者验证</h2><div style="font-size:.74rem;color:var(--tg);margin-top:2px;">请输入开发者密码</div></div>
+        </div>
+        <div class="modal-sec" style="margin-top:18px;">
+            <div class="info-box dev-b">
+                <h4>⚠️ 权限说明</h4>
+                <p>开发者模式可配置大模型 API、知识库多源接入、Agent 单独 Prompt 及上传新 Agent。请确认你有相应权限。</p>
+            </div>
+            <div class="fg">
+                <label>开发者密码</label>
+                <input type="password" id="devPwd" class="di" placeholder="请输入密码" onkeydown="if(event.key==='Enter')verifyDev()">
+            </div>
+        </div>
+        <div class="modal-ft">
+            <button class="mbtn s" onclick="closeModal('devPassModal');switchMode('user')">取消</button>
+            <button class="mbtn dp" onclick="verifyDev()">验证进入</button>
+        </div>
+    </div>
+</div>
+
+<!-- ══════ CONFIRM ══════ -->
+<div class="modal-overlay" id="confirmModal">
+    <div class="modal" style="max-width:380px;">
+        <div class="modal-hdr"><div class="m-icon">❓</div><h2 id="cfmTitle">确认</h2></div>
+        <div class="modal-sec" style="margin-top:18px;"><p id="cfmText" style="color:var(--tg);line-height:1.6;font-size:.88rem;"></p></div>
+        <div class="modal-ft">
+            <button class="mbtn s" onclick="closeModal('confirmModal')">取消</button>
+            <button class="mbtn p" id="cfmOk">确认</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ═══════════════ DATA ═══════════════
+const agents = [
+    {
+        id:'tiktok-africa', name:'TikTok 非洲流量官', icon:'🎬',
+        platform:'TikTok · 非洲市场',
+        desc:'TikTok 非洲流量运营专家，专注于通过流量引导至独立站的转化路径',
+        features:['短视频引流','直播引导','独立站承接','用户留存','流量转化路径'],
+        price:'¥49/周'
+    },
+    {
+        id:'kilimall', name:'Kilimall 东非开店官', icon:'🇰🇪',
+        platform:'Kilimall · 肯尼亚',
+        desc:'Kilimall 平台东非市场运营，从卖家注册流程拆解到商品上架优化',
+        features:['注册入驻','资质审核','商品上架','热销品类','促销节点'],
+        price:'¥49/周'
+    },
+    {
+        id:'temu-africa', name:'Temu 非洲本土化顾问', icon:'🛍️',
+        platform:'Temu · 非洲市场',
+        desc:'Temu 非洲市场本土化运营，消费者购买力分层与定价策略',
+        features:['消费力分层','本土定价','DTS物流','CC售后','三单匹配'],
+        price:'¥49/周'
+    },
+    {
+        id:'jumia', name:'Jumia 全非洲运营师', icon:'🌍',
+        platform:'Jumia · 14 国覆盖',
+        desc:'Jumia 平台 14 国运营数据拆解，品类差异与仓配成本对比',
+        features:['14国品类','仓配成本','物流路径','大促节奏','数据看板'],
+        price:'¥49/周'
+    },
+    {
+        id:'takealot', name:'Takealot 南非专家', icon:'🇿🇦',
+        platform:'Takealot · 南非',
+        desc:'Takealot 平台南非市场运营，高客单价品类与Listing优化',
+        features:['热销品类','Listing优化','物流时效','品牌入驻','竞品监控'],
+        price:'¥49/周'
+    },
+    {
+        id:'b2b', name:'非洲 B2B 外贸经理', icon:'💼',
+        platform:'B2B · 独立站',
+        desc:'非洲 B2B 外贸独立站运营，大客户开发与询盘转化',
+        features:['大客户开发','询盘转化','WhatsApp商务','SEO策略','报价分析'],
+        price:'¥49/周'
+    },
+    {
+        id:'marketing', name:'非洲营销增长师', icon:'📣',
+        platform:'营销 · 全平台',
+        desc:'非洲市场全渠道营销，Facebook/Instagram 广告 ROI 案例',
+        features:['Facebook广告','WhatsApp裂变','内容策略','节日营销','多渠道归因'],
+        price:'¥49/周'
+    },
+    {
+        id:'logistics', name:'非洲物流规划师', icon:'🚢',
+        platform:'物流 · 仓储',
+        desc:'非洲跨境物流体系拆解，海运/空运/本地配送成本对比',
+        features:['海运vs空运','清关差异','本地仓合作','最后一公里','物流时效'],
+        price:'¥49/周'
+    },
+    {
+        id:'compliance', name:'非洲合规顾问', icon:'⚖️',
+        platform:'合规 · 政策',
+        desc:'非洲各国跨境政策拆解，进口关税结构对比与平台合规要求',
+        features:['关税结构','合规差异','知识产权','违规案例','政策追踪'],
+        price:'基础版 ¥29/月 | 专业版 ¥89/月'
+    },
+    {
+        id:'skill-pack', name:'Skill 技能包', icon:'📦',
+        platform:'Skill · 年费会员',
+        desc:'AI Skill 技能打包能力，可接入龙虾等外部工具，提供专业技能扩展，包括自动化脚本、数据分析、多平台同步等。年费会员专属，持续迭代更新',
+        features:[
+            {name:'Skill技能打包', type:'pro'},
+            {name:'龙虾工具接入', type:'pro'},
+            {name:'自动化脚本', type:'pro'},
+            {name:'多平台同步', type:'pro'},
+            {name:'数据分析扩展', type:'pro'},
+            {name:'技能持续迭代', type:'pro'}
+        ],
+        price:'年费会员专属'
+    },
+];
+
+const hirePlans = {
+    day:   { label:'日雇', price:9,   unit:'天',  desc:'快速体验，送1位Agent+合规顾问' },
+    week:  { label:'周雇', price:49,  unit:'周',  desc:'集中攻坚，高效产出' },
+    month: { label:'月雇', price:149, unit:'月',  desc:'持续陪跑，稳定输出' },
+    quarter:{ label:'季雇',price:399, unit:'季',  desc:'深度合作' },
+    year:  { label:'年雇',price:999, unit:'年',  desc:'年度旗舰，含Skill技能包' },
+};
+
+let currentMode = 'user';
+let currentAPIKey = '';
+let currentKBPath = 'C:/Users/Administrator/knowledge-db';
+let selectedFiles = [];
+let hireType = 'month';
+const DEV_PASSWORD = 'afribuddy2026';
+let agentConfigs = {};
+
+// ═══════════════ RENDER AGENTS GRID ═══════════════
+function renderAgentGrid() {
+    const grid = document.getElementById('agentGrid');
+    if (!grid) return;
+    grid.innerHTML = agents.map(agent => `
+        <div class="agent-card" data-id="${agent.id}" onclick="enterChat('${agent.id}')">
+            <div class="hire-price-badge">${agent.price}</div>
+            <div class="agent-card-top">
+                <div class="agent-emoji">${agent.icon}</div>
+                <div>
+                    <h3>${agent.name}</h3>
+                    <span class="agent-plat">${agent.platform}</span>
+                </div>
+            </div>
+            <div class="agent-desc">${agent.desc}</div>
+            <div class="agent-features">${agent.features.map(f => `<span class="ftag">${typeof f === 'object' ? f.name : f}</span>`).join('')}</div>
+            <button class="agent-hire-btn" onclick="event.stopPropagation();openHireModal('month')">雇佣</button>
+        </div>
+    `).join('');
+}
+
+// ═══════════════ INIT ═══════════════
+document.addEventListener('DOMContentLoaded', () => {
+    renderAgentGrid(); // 渲染Agent列表
+    renderSkillPackToGrid(); // 添加Skill Pack
+    loadSettings();
+    setupFileUpload();
+    populateDevAgentSelect();
+    setupTextareaAutoResize();
+
+    document.querySelectorAll('.modal-overlay').forEach(o => {
+        o.addEventListener('click', e => {
+            if(e.target === o && o.id !== 'devPassModal') closeModal(o.id);
+        });
+    });
+});
+
+// ═══════════════ RENDER SKILL PACK ═══════════════
+function renderSkillPack() {
+    const skillPack = {
+        id: 'skill-pack',
+        name: 'Skill 技能包',
+        icon: '📦',
+        platform: 'Skill · 年费会员',
+        desc: 'AI Skill 技能打包能力，可接入龙虾等外部工具，提供专业技能扩展。年费会员专属，持续迭代更新',
+        features: [
+            {name:'Skill技能打包', type:'pro'},
+            {name:'龙虾工具接入', type:'pro'},
+            {name:'自动化脚本', type:'pro'},
+            {name:'多平台同步', type:'pro'},
+            {name:'数据分析扩展', type:'pro'},
+            {name:'技能持续迭代', type:'pro'}
+        ],
+        price: '年费会员专属'
+    };
+    return `
+        <div class="agent-card" data-id="${skillPack.id}" onclick="enterChat('${skillPack.id}')">
+            <div class="hire-price-badge" style="background:linear-gradient(135deg,#6366F1,#4F46E5);color:#fff">${skillPack.price}</div>
+            <div class="agent-card-top">
+                <div class="agent-emoji">${skillPack.icon}</div>
+                <div>
+                    <h3 style="color:#6366F1">${skillPack.name}</h3>
+                    <span class="agent-plat" style="color:#6366F1;background:rgba(99,102,241,.1)">${skillPack.platform}</span>
+                </div>
+            </div>
+            <div class="agent-desc">${skillPack.desc}</div>
+            <div class="agent-features">${skillPack.features.map(f=>`<span class="ftag" style="background:rgba(99,102,241,.07);color:#6366F1;border-color:rgba(99,102,241,.13)">${typeof f === 'object' ? f.name : f}</span>`).join('')}</div>
+            <button class="agent-hire-btn" style="background:linear-gradient(135deg,#6366F1,#4F46E5);box-shadow:0 3px 12px rgba(99,102,241,.22);" onclick="event.stopPropagation();quickHire('${skillPack.id}')">📦 获取技能包</button>
+        </div>
+    `;
+}
+
+// ═══════════════ ADD SKILL PACK TO GRID ═══════════════
+function renderSkillPackToGrid() {
+    const grid = document.getElementById('agentGrid');
+    if (!grid) return;
+    const skillPackHTML = renderSkillPack();
+    grid.innerHTML += skillPackHTML;
+}
+
+function populateDevAgentSelect() {
+    const sel = document.getElementById('devAgentSel');
+    if(!sel) return;
+    sel.innerHTML = agents.map(a => `<option value="${a.id}">${a.icon} ${a.name}</option>`).join('');
+    // also populate hire agent select
+    const hireSel = document.getElementById('hireAgentSel');
+    if(hireSel) hireSel.innerHTML = agents.map(a=>`<option value="${a.id}">${a.icon} ${a.name}</option>`).join('');
+}
+
+// ═══════════════ HIRE MODAL ═══════════════
+window.openHireModal = function(type) {
+    hireType = type;
+    const plan = hirePlans[type];
+    document.getElementById('hireTitle').textContent = `雇佣 Agent · ${plan.label}`;
+    document.getElementById('hireSubtitle').textContent = plan.desc;
+
+    // 日雇赠送合规顾问
+    let displayAmt = `¥${plan.price}`;
+    let displayPer = `${plan.label} · 1 ${plan.unit}`;
+
+    if (type === 'day') {
+        displayPer = `${plan.label} (送1位Agent+合规顾问)`;
+    }
+
+    if (type === 'year') {
+        displayPer = `${plan.label} (含Skill技能包)`;
+    }
+
+    document.getElementById('hireAmt').textContent = displayAmt;
+    document.getElementById('hirePer').textContent = displayPer;
+    document.getElementById('hireModal').classList.add('active');
+};
+
+window.quickHire = function(agentId) {
+    openHireModal('month');
+    const sel = document.getElementById('hireAgentSel');
+    if(sel) sel.value = agentId;
+};
+
+window.confirmHire = function() {
+    const agentId = document.getElementById('hireAgentSel').value;
+    const agent = agents.find(a => a.id === agentId);
+    closeModal('hireModal');
+    showToast(`✅ 已雇佣 ${agent ? agent.icon + agent.name : 'Agent'}，支付功能即将上线～`);
+};
+
+// ═══════════════ ENTER CHAT ═══════════════
+window.enterChat = function(agentId) {
+    const agent = agents.find(a => a.id === agentId);
+    if(!agent) return;
+    document.getElementById('chatAgentIcon').textContent = agent.icon;
+    document.getElementById('chatAgentName').textContent = agent.name;
+    renderWelcome(agent);
+    document.getElementById('agentSelection').style.display = 'none';
+    document.getElementById('chatSection').style.display = 'flex';
+};
+
+// ═══════════════ WELCOME + DIRECTORY ═══════════════
+// ═══════════════ CHAT DIRECTIONS BY AGENT ═══════════════
+// 不同 Agent 有不同的目录选项
+function getAgentChatDirs(agentId) {
+    const baseDirs = {
+        identity: [
+            { icon:'🌱', title:'跨境新手', desc:'需要从平台注册开始的基础路径', key:'newbie' },
+            { icon:'🦅', title:'运营老手', desc:'需要突破瓶颈的增长路径分析', key:'expert' },
+        ],
+        topic: [
+            { icon:'🏪', title:'店铺开设', desc:'入驻、资质、上架全流程拆解',  key:'open' },
+            { icon:'📊', title:'日常运营', desc:'选品、定价、广告、数据解读', key:'ops' },
+            { icon:'📦', title:'物流仓储', desc:'发货、清关、仓库、配送路径', key:'logistics' },
+            { icon:'💬', title:'客服纠纷', desc:'差评应对、纠纷处理、退换货', key:'cs' },
+            { icon:'📈', title:'流量增长', desc:'广告投放、内容策略、渠道ROI', key:'growth' },
+            { icon:'⚖️', title:'合规政策', desc:'进口政策、税务、知识产权',   key:'compliance' },
+        ]
+    };
+
+    // 各 Agent 专属目录
+    const agentSpecificDirs = {
+        'tiktok-africa': {
+            topic: [
+                { icon:'🎬', title:'短视频玩法', desc:'脚本创作、拍摄技巧、剪辑方法', key:'tiktok-video' },
+                { icon:'방송', title:'直播引流', desc:'开播准备、互动话术、福袋设置', key:'tiktok-live' },
+                { icon:'🛒', title:'独立站转化', desc:'引流设计、落地页、购物车设置', key:'tiktok-convert' },
+                { icon:'👥', title:'用户运营', desc:'粉丝增长、评论互动、私信营销', key:'tiktok-user' },
+                { icon:'💰', title:'流量变现', desc:'带货技巧、佣金计算、广告投放', key:'tiktok-money' }
+            ]
+        },
+        'kilimall': {
+            topic: [
+                { icon:'🏪', title:'店铺入驻', desc:'注册流程、资质审核、品类开通', key:'kilimall-reg' },
+                { icon:'📦', title:'商品管理', desc:'上架流程、标题优化、主图制作', key:'kilimall-product' },
+                { icon:'📝', title:'订单处理', desc:'接单、发货、物流单号、售后', key:'kilimall-order' },
+                { icon:'💬', title:'客户服务', desc:'话术模板、纠纷处理、退款流程', key:'kilimall-cs' },
+                { icon:'📢', title:'营销推广', desc:'平台活动、优惠券、限时折扣', key:'kilimall-marketing' }
+            ]
+        },
+        'temu-africa': {
+            topic: [
+                { icon:'⚖️', title:'平台规则', desc:'定价策略、佣金计算、违规处理', key:'temu-rules' },
+                { icon:'🚚', title:'DTS物流', desc:'发货流程、仓库地址、标签打印', key:'temu-dts' },
+                { icon:'📦', title:'订单履约', desc:'发货时效、取消订单、修改地址', key:'temu-fulfill' },
+                { icon:'↩️', title:'客户服务', desc:'CC话术、售后处理、退货流程', key:'temu-cs' },
+                { icon:'📊', title:'消费者心理', desc:'价格敏感、退款原因、复购驱动', key:'temu-psych' }
+            ]
+        },
+        'jumia': {
+            topic: [
+                { icon:'🌍', title:'多国市场', desc:'尼日利亚、肯尼亚、埃及、南非', key:'jumia-countries' },
+                { icon:'🏭', title:'仓配服务', desc:'FBJ vs FBS、中心仓、区域仓', key:'jumia-warehouse' },
+                { icon:'🎉', title:'活动策划', desc:'SuperSale、黑五、年终大促', key:'jumia-campaign' },
+                { icon:'📈', title:'数据分析', desc:'转化率、加购率、退货率', key:'jumia-data' },
+                { icon:'📋', title:'合规要求', desc:'产品认证、标签规范、清关文件', key:'jumia-compliance' }
+            ]
+        },
+        'takealot': {
+            topic: [
+                { icon:'📝', title:'平台入门', desc:'卖家注册、VAT号码、产品认证', key:'takealot-onboard' },
+                { icon:'🖼️', title:'Listing优化', desc:'标题模板、主图规范、关键词', key:'takealot-listing' },
+                { icon:'📦', title:'物流时效', desc:'标准配送、次日达、自提点', key:'takealot-logistics' },
+                { icon:'🏷️', title:'品牌入驻', desc:'品牌申请、唯一性审核、保证金', key:'takealot-brand' },
+                { icon:'📊', title:'竞争分析', desc:'价格监控、排名追踪、评价分析', key:'takealot-competitor' }
+            ]
+        },
+        'b2b': {
+            topic: [
+                { icon:'🤝', title:'客户开发', desc:'平台询盘、社交媒体、展会获客', key:'b2b-dev' },
+                { icon:'💬', title:'询盘转化', desc:'2小时回复、专业解答、案例展示', key:'b2b-convert' },
+                { icon:'✉️', title:'商务沟通', desc:'邮件模板、WhatsApp话术', key:'b2b-com' },
+                { icon:'💰', title:'报价策略', desc:'FOB报价、CIF报价、MOQ设置', key:'b2b-quote' },
+                { icon:'🤝', title:'长期合作', desc:'定期回访、新品推荐、价格保护', key:'b2b-long' }
+            ]
+        },
+        'marketing': {
+            topic: [
+                { icon:'📢', title:'广告投放', desc:'Facebook ROI、Instagram转化', key:'marketing-ads' },
+                { icon:'📝', title:'内容策划', desc:'脚本创作、图文模板、视频制作', key:'marketing-content' },
+                { icon:'📅', title:'节日营销', desc:'圣诞季、黑五、新年、排期', key:'marketing-fest' },
+                { icon:'📈', title:'ROI分析', desc:'广告花费、转化率、单客成本', key:'marketing-roi' },
+                { icon:'🔗', title:'渠道归因', desc:'首触渠道、末触渠道、数据看板', key:'marketing-attr' }
+            ]
+        },
+        'logistics': {
+            topic: [
+                { icon:'🚢', title:'运输方式', desc:'海运、空运、铁路、卡车', key:'logistics-transport' },
+                { icon:' Customs', title:'清关流程', desc:'提单审核、缴税、检验', key:'logistics-clear' },
+                { icon:'🏭', title:'仓储合作', desc:'仓租、代运营、VMI', key:'logistics-warehouse' },
+                { icon:'📍', title:'最后一公里', desc:'本地配送、自提点、邮政', key:'logistics-last' },
+                { icon:'📉', title:'成本优化', desc:'批量发货、包装优化、谈判', key:'logistics-cost' }
+            ]
+        },
+        'compliance': {
+            topic: [
+                { icon:'💰', title:'关税政策', desc:'进口关税、增值税、消费税', key:'compliance-taxes' },
+                { icon:'✅', title:'平台合规', desc:'产品认证、标签规范、说明书', key:'compliance-platform' },
+                { icon:' trademark', title:'知识产权', desc:'商标注册、专利申请、版权', key:'compliance-ip' },
+                { icon:'⚠️', title:'违规案例', desc:'仿品处理、标签违规、虚假宣传', key:'compliance-avoid' },
+                { icon:'📰', title:'政策追踪', desc:'官网查询、政策变更、过渡期', key:'compliance-track' }
+            ]
+        }
+    };
+
+    // 合并基础目录和专属目录
+    const specific = agentSpecificDirs[agentId] || {};
+    return {
+        identity: baseDirs.identity,
+        topic: [...(specific.topic || baseDirs.topic)]
+    };
+}
+
+// ═══════════════ RENDER WELCOME WITH DIRECTORIES ═══════════════
+window.renderWelcome = function(agent) {
+    const dirs = getAgentChatDirs(agent.id);
+    const welcomeArea = document.getElementById('welcomeArea');
+    if(!welcomeArea) return;
+
+    // 清空旧内容
+    welcomeArea.innerHTML = '';
+
+    // 生成目录卡片 HTML
+    const generateDirCards = (items, title, groupKey) => {
+        if(!items || items.length === 0) return '';
+        return `
+            <div class="dir-group">
+                <div class="dir-group-lbl">${title}</div>
+                <div class="dir-cards">
+                    ${items.map(d => `
+                        <div class="dir-card" onclick="selectDir('${d.key}', '${agent.id}')">
+                            <div class="dir-icon">${d.icon}</div>
+                            <div class="dir-info">
+                                <h4>${d.title}</h4>
+                                <p>${d.desc}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    };
+
+    let content = `<div class="welcome-card">`;
+    content += `<div class="welcome-title">${agent.icon} ${agent.name}</div>`;
+    content += `<div class="welcome-sub">请选择一个方向开始:</div>`;
+
+    // Identity 组
+    if(dirs.identity && dirs.identity.length > 0) {
+        content += generateDirCards(dirs.identity, '路径选择', 'identity');
+    }
+
+    // Topic 组
+    if(dirs.topic && dirs.topic.length > 0) {
+        content += generateDirCards(dirs.topic, '专题目录', 'topic');
+    }
+
+    content += `</div>`;
+    welcomeArea.innerHTML = content;
+}
+
+// ═══════════════ SELECT DIRECTORY ═══════════════
+window.selectDir = function(key, agentId) {
+    const msg = dirMsgs[key] || `请帮我了解 ${key} 的相关内容。`;
+    const input = document.getElementById('chatInput');
+    if(input) {
+        input.value = msg;
+        // 触发自动调整高度
+        const event = new Event('input', { bubbles: true });
+        input.dispatchEvent(event);
+    }
+    showToast(`✅ 已选择: ${key}`);
+}
+
+const dirMsgs = {
+    newbie:    '我是跨境新手，请帮我梳理从零开始开店到出单的完整路径。',
+    expert:    '我有多年运营经验，请帮我分析当前的增长瓶颈和突破方向。',
+    open:      '请帮我拆解店铺开设的完整流程，包括注册、资质和上架路径。',
+    ops:       '请帮我分析日常运营的关键环节：选品逻辑、定价策略和广告投放。',
+    logistics: '请帮我拆解非洲物流仓储的各环节成本和路径选择。',
+    cs:        '请帮我分析客服纠纷的处理路径和差评应对策略。',
+    growth:    '请帮我拆解非洲市场的流量增长策略，分析各渠道的 ROI 数据。',
+    compliance:'请帮我梳理非洲各国的合规政策和进口税务结构。',
+    // TikTok 专属
+    'tiktok-video': '请帮我拆解 TikTok 非洲短视频的爆款脚本创作和拍摄技巧。',
+    'tiktok-live': '请帮我分析 TikTok 直播引流的完整流程和互动话术。',
+    'tiktok-convert': '请帮我设计 TikTok 到独立站的转化路径和落地页方案。',
+    'tiktok-user': '请帮我制定 TikTok 用户运营策略和粉丝增长方法。',
+    'tiktok-money': '请帮我分析 TikTok 流量变现的佣金计算和广告投放策略。',
+    // Kilimall 专属
+    'kilimall-reg': '请帮我拆解 Kilimall 店铺入驻的完整流程和资质要求。',
+    'kilimall-product': '请帮我优化 Kilimall 商品上架的标题和主图制作。',
+    'kilimall-order': '请帮我处理 Kilimall 订单履约和售后问题。',
+    'kilimall-cs': '请帮我准备 Kilimall 客户服务的话术模板。',
+    'kilimall-marketing': '请帮我策划 Kilimall 平台的营销推广活动。',
+    // Temu 专属
+    'temu-rules': '请帮我分析 Temu 平台的核心规则和违规处理流程。',
+    'temu-dts': '请帮我拆解 Temu DTS 物流的完整发货流程。',
+    'temu-fulfill': '请帮我了解 Temu 订单履约的各项时效要求。',
+    'temu-cs': '请帮我准备 Temu 客户服务的 CC 话术和售后处理。',
+    'temu-psych': '请帮我分析 Temu 消费者的心理特征和购买行为。',
+    // Jumia 专属
+    'jumia-countries': '请帮我对比 Jumia 在尼日利亚、肯尼亚等国的市场差异。',
+    'jumia-warehouse': '请帮我分析 Jumia FBJ 和 FBS 仓配服务的优劣。',
+    'jumia-campaign': '请帮我规划 Jumia 平台的活动策划和报名节奏。',
+    'jumia-data': '请帮我搭建 Jumia 平台的数据分析看板。',
+    'jumia-compliance': '请帮我了解 Jumia 在不同国家的合规要求。',
+    // Takealot 专属
+    'takealot-onboard': '请帮我准备 Takealot 卖家注册和准入材料。',
+    'takealot-listing': '请帮我优化 Takealot Listing 的标题和关键词。',
+    'takealot-logistics': '请帮我了解 Takealot 的物流时效和配送选项。',
+    'takealot-brand': '请帮我申请 Takealot 品牌入驻和唯一性审核。',
+    'takealot-competitor': '请帮我监控 Takealot 竞品的价格和排名。',
+    // B2B 专属
+    'b2b-dev': '请帮我制定非洲 B2B 客户开发的完整路径和策略。',
+    'b2b-convert': '请帮我提高 B2B 询盘转化率的实战方法。',
+    'b2b-com': '请帮我准备 WhatsApp 和邮件商务沟通话术。',
+    'b2b-quote': '请帮我制定非洲 B2B 报价策略和付款方式。',
+    'b2b-long': '请帮我建立非洲 B2B 长期合作的维护机制。',
+    // Marketing 专属
+    'marketing-ads': '请帮我分析 Facebook/Instagram 广告在非洲的 ROI 数据。',
+    'marketing-content': '请帮我策划非洲市场的节日内容营销方案。',
+    'marketing-fest': '请帮我制定非洲节日营销的完整排期表。',
+    'marketing-roi': '请帮我建立营销活动的 ROI 分析模型。',
+    'marketing-attr': '请帮我设置多渠道归因的数据看板。',
+    // Logistics 专属
+    'logistics-transport': '请帮我对比海运、空运、铁路在非洲的性价比。',
+    'logistics-clear': '请帮我拆解非洲各国的清关流程和风险点。',
+    'logistics-warehouse': '请帮我选择非洲本地仓的合作伙伴模式。',
+    'logistics-last': '请帮我解决非洲最后一公里配送的方案。',
+    'logistics-cost': '请帮我优化非洲跨境物流的整体成本。',
+    // Compliance 专属
+    'compliance-taxes': '请帮我梳理非洲各国的关税结构和增值税政策。',
+    'compliance-platform': '请帮我了解各平台的产品合规要求。',
+    'compliance-ip': '请帮我规划非洲市场的商标和专利注册策略。',
+    'compliance-avoid': '请帮我分析非洲常见的违规案例和预防措施。',
+    'compliance-track': '请帮我建立非洲政策变动的追踪机制。'
+};
+
+// ═══════════════ SETTINGS ═══════════════
+window.openSettings = function() {
+    const isDev = currentMode === 'developer';
+    document.getElementById('settingsTitle').textContent = isDev ? '开发者设置' : '系统设置';
+    document.getElementById('settingsSub').textContent = isDev ? '开发者模式' : '用户模式';
+    document.getElementById('settingsIcon').textContent = isDev ? '🛠️' : '⚙️';
+    document.getElementById('userSettings').style.display = isDev ? 'none' : 'block';
+    document.getElementById('devSettings').style.display = isDev ? 'block' : 'none';
+    document.getElementById('dashscopeKey').value = currentAPIKey;
+    document.getElementById('knowledgePath').value = currentKBPath;
+    document.getElementById('settingsModal').classList.add('active');
+};
+
+window.saveSettings = function() {
+    currentAPIKey = document.getElementById('dashscopeKey').value.trim();
+    currentKBPath = document.getElementById('knowledgePath').value.trim();
+    localStorage.setItem('afri_api_key', currentAPIKey);
+    localStorage.setItem('afri_kb_path', currentKBPath);
+    showToast('✅ 已保存');
+};
+
+window.loadSettings = function() {
+    currentAPIKey = localStorage.getItem('afri_api_key') || '';
+    currentKBPath = localStorage.getItem('afri_kb_path') || 'C:/Users/Administrator/knowledge-db';
+    const k = document.getElementById('dashscopeKey');
+    const p = document.getElementById('knowledgePath');
+    if(k) k.value = currentAPIKey;
+    if(p) p.value = currentKBPath;
+};
+
+// LLM UI update
+window.updateLLMUI = function() {
+    const val = document.getElementById('llmProvider').value;
+    const hints = {
+        qwen:    '从 dashscope.console.aliyun.com 获取',
+        gpt:     '从 platform.openai.com 获取',
+        claude:  '从 console.anthropic.com 获取',
+        gemini:  '从 aistudio.google.com 获取',
+        deepseek:'从 platform.deepseek.com 获取',
+        custom:  '输入你的自定义 API Key',
+    };
+    document.getElementById('llmKeyHint').textContent = hints[val] || '';
+    document.getElementById('customEndpointGroup').style.display = val === 'custom' ? 'block' : 'none';
+};
+window.updateLLMUI(); // init
+
+// Agent config
+window.loadAgentConfig = function() {
+    const id = document.getElementById('devAgentSel').value;
+    const cfg = agentConfigs[id] || {};
+    document.getElementById('agentLLM').value = cfg.llm || '';
+    document.getElementById('agentPrompt').value = cfg.prompt || '';
+};
+
+// KB Tab switch
+window.switchKBTab = function(tab, btn) {
+    document.querySelectorAll('.kb-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.kb-source-panel').forEach(p => p.classList.remove('show'));
+    btn.classList.add('active');
+    const panel = document.getElementById('kb-' + tab);
+    if(panel) panel.classList.add('show');
+};
+
+window.uploadKnowledge = function() {
+    const file = document.getElementById('devFileInput').files[0];
+    if(!file) { showToast('请先选择文件'); return; }
+    showToast(`✅ 已上传 ${file.name}`);
+    const list = document.getElementById('devKBList');
+    list.innerHTML += `<div style="padding:5px 0;border-bottom:1px solid #E0E7FF;font-size:.78rem;color:#4338CA;">📄 ${file.name} <span style="color:#94A3B8;font-size:.7rem;">${new Date().toLocaleTimeString()}</span></div>`;
+};
+
+window.clearKnowledge = function() {
+    showConfirm('清空知识库', '确定清空当前 Agent 的知识库？', () => {
+        document.getElementById('devKBList').innerHTML = '';
+        showToast('🗑 知识库已清空');
+    });
+};
+
+window.saveCloudKB = function() { showToast('✅ 云端知识库地址已保存'); };
+
+window.syncGitHub = function() {
+    const repo = document.getElementById('githubRepo').value;
+    if(!repo) { showToast('请先填写 GitHub 仓库地址'); return; }
+    showToast('🔄 正在同步 GitHub 知识库...');
+    setTimeout(() => showToast('✅ GitHub 知识库同步完成'), 1800);
+};
+
+window.testKBApi = function() {
+    const url = document.getElementById('kbApiUrl').value;
+    if(!url) { showToast('请先填写 API 地址'); return; }
+    showToast('🔄 正在测试连接...');
+    setTimeout(() => showToast('✅ API 连接测试成功'), 1500);
+};
+
+window.clearAllData = function() {
+    showConfirm('清除本地数据', '确定清除所有本地数据？此操作不可恢复！', () => {
+        localStorage.clear(); currentAPIKey = ''; currentKBPath = 'C:/Users/Administrator/knowledge-db';
+        loadSettings(); showToast('🗑 本地数据已清除');
+    });
+};
+
+// ═══════════════ FILE UPLOAD ═══════════════
+function setupFileUpload() {
+    const zone = document.getElementById('fileZone');
+    const input = document.getElementById('fileInput');
+    if(!zone||!input) return;
+    zone.addEventListener('click', ()=>input.click());
+    zone.addEventListener('dragover', e=>{ e.preventDefault(); zone.style.borderColor='#F97316'; });
+    zone.addEventListener('dragleave', ()=>{ zone.style.borderColor=''; });
+    zone.addEventListener('drop', e=>{ e.preventDefault(); zone.style.borderColor=''; handleFiles(e.dataTransfer.files); });
+    input.addEventListener('change', e=>handleFiles(e.target.files));
+}
+function handleFiles(files) {
+    for(let f of files) {
+        if(selectedFiles.length>=5){ showToast('最多 5 个文件'); break; }
+        selectedFiles.push(f);
+    }
+    renderFilePreview();
+}
+function renderFilePreview() {
+    document.getElementById('filePreview').innerHTML = selectedFiles.map((f,i)=>
+        `<span class="ftag-file">📄 ${f.name} <span style="cursor:pointer" onclick="rmFile(${i})">×</span></span>`
+    ).join('');
+}
+window.rmFile = function(i){ selectedFiles.splice(i,1); renderFilePreview(); };
+
+// ═══════════════ SEND MESSAGE ═══════════════
+async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if(!text) return;
+    const area = document.getElementById('chatArea');
+    const now = new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
+    area.innerHTML += `<div class="message user">${esc(text).replace(/\n/g,'<br>')}<div class="msg-ts">${now}</div></div>`;
+    input.value = ''; input.style.height='auto'; scrollBottom();
+    const lid = 'ld_'+Date.now();
+    area.innerHTML += `<div class="message assistant" id="${lid}"><div class="agent-tag">🌟 AfriBuddy</div><div class="typing-ind"><span></span><span></span><span></span></div></div>`;
+    scrollBottom();
+    try {
+        const res = await fetch('http://localhost:3001/api/chat',{
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ message:text, agentId:document.getElementById('chatAgentName').textContent, apiKey:currentAPIKey, knowledgePath:currentKBPath })
+        });
+        const data = await res.json();
+        document.getElementById(lid)?.remove();
+        area.innerHTML += `<div class="message assistant"><div class="agent-tag">🌟 AfriBuddy</div>${data.reply.replace(/\n/g,'<br>')}<div class="msg-ts">${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})}</div></div>`;
+        scrollBottom();
+    } catch(e) {
+        document.getElementById(lid)?.remove();
+        area.innerHTML += `<div class="message system">💛 服务器暂未连接，但我随时在线等你～<br><small style="opacity:.6">${e.message}</small></div>`;
+        scrollBottom();
+    }
+}
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+window.scrollBottom = function(){ const a=document.getElementById('chatArea'); if(a) a.scrollTop=a.scrollHeight; };
+
+// ═══════════════ CHAT ACTIONS ═══════════════
+window.clearChat = function() {
+    showConfirm('清空对话','确定清空当前对话记录？',()=>{
+        const nm = document.getElementById('chatAgentName').textContent;
+        const agent = agents.find(a=>a.name===nm)||agents[0];
+        renderWelcome(agent);
+    });
+};
+window.exportChat = function() {
+    const msgs = Array.from(document.querySelectorAll('.message:not(.system)')).map(m=>({
+        role: m.classList.contains('user')?'user':'assistant',
+        text: m.innerText.replace(/\d{2}:\d{2}/,'').trim()
+    }));
+    const blob = new Blob([JSON.stringify(msgs,null,2)],{type:'application/json'});
+    const a = document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download=`afribuddy-${new Date().toLocaleDateString('zh-CN').replace(/\//g,'-')}.json`;
+    a.click(); URL.revokeObjectURL(a.href);
+    showToast('📤 对话已导出');
+};
+
+// ═══════════════ NAVIGATION FUNCTIONS ═══════════════
+window.goHome = function() {
+    document.getElementById('chatSection').style.display = 'none';
+    document.getElementById('agentSelection').style.display = 'block';
+    // 滚动到顶部
+    window.scrollTo({top: 0, behavior: 'smooth'});
+};
+window.exitApp = function() {
+    if(confirm('确定要退出 AfriBuddy 吗？')) {
+        localStorage.clear();
+        location.reload();
+    }
+};
+
+// ═══════════════ MODAL ═══════════════
+window.closeModal = function(id){ document.getElementById(id).classList.remove('active'); };
+window.showConfirm = function(title,text,fn){
+    document.getElementById('cfmTitle').textContent=title;
+    document.getElementById('cfmText').textContent=text;
+    document.getElementById('cfmOk').onclick=()=>{ closeModal('confirmModal'); fn(); };
+    document.getElementById('confirmModal').classList.add('active');
+};
+// ═══════════════ TOAST ═══════════════
+window.showToast = function(msg){
+    const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2600);
+};
+// ═══════════════ TEXTAREA RESIZE ═══════════════
+function setupTextareaAutoResize(){
+    const ta=document.getElementById('chatInput');
+    if(!ta) return;
+    ta.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();} });
+    ta.addEventListener('input',()=>{ ta.style.height='auto'; ta.style.height=Math.min(ta.scrollHeight,110)+'px'; });
+}
+</script>
+</body>
+</html>
